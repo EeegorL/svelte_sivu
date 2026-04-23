@@ -15,7 +15,6 @@
     ];
 
     const ajat = Array.from({length: 20 - 8}, (x, i) => i + 8);
-    let d = false;
 </script>
 
 <div>
@@ -50,16 +49,15 @@
 
 <style>
     div {
-        width: 100%;
+        width: 95%;
         margin: 0 1rem;
     }
     
     table {
         width: 100%;
         margin-top: 1rem;
-        border: 1px solid black;
-        border-radius: 0 10px 10px 0;
         border-collapse: collapse;
+        background-color: whitesmoke;
     }
 
     th {

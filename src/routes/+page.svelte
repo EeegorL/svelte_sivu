@@ -1,5 +1,5 @@
 <script>
-    import ShiftViewer from "../components/ShiftViewer/ShiftViewer.svelte";
+    import ShiftViewer from "../components/ShiftViewer.svelte";
 </script>
 
 <main>

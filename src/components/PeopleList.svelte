@@ -1,42 +1,3 @@
-<div>
-    <ul>
-    {#each people as p}
-        <li><strong>{p.abbr}</strong> {p.name}</li>
-    {/each}
-    </ul>
-</div>
-
-<style>
-    div {
-        position: relative;
-        width: fit-content;
-        border: 1px solid black;
-        border-radius: 10px 0 0 10px;
-        margin-left: 1rem;
-        margin-top: 1rem;
-    }
-
-    ul {
-        display: flex;
-        flex-direction: column;
-
-        margin: 0;
-        padding: 0;
-        gap: .5rem;
-        overflow-y: scroll;
-        height: 40rem;
-
-        scrollbar-color: var(--ashGrey) var(--darkKhaki);
-    }
-
-    li {
-        list-style: none;
-    }
-    li:nth-child(even) {
-        background-color: var(--ashGrey);
-    }
-</style>
-
 <script>
     let people = $state([]);
 
@@ -107,4 +68,64 @@
         return a.abbr > b.abbr ? 1 : -1;
     });
     peopleList.forEach(x => people.push(x));
+
+    let sidebarShown = $state(true);
+    const toggleSidebar = () => sidebarShown = !sidebarShown;
 </script>
+
+<div>
+    {#if sidebarShown}
+    <aside>
+        <ul>
+        {#each people as p}
+            <li><strong>{p.abbr}</strong> {p.name}</li>
+        {/each}
+        </ul>
+    </aside>
+    {/if}
+    <button onclick={toggleSidebar}>{sidebarShown ? "Hide tha shi" : "Show tha shi"}</button>
+</div>
+
+
+<style>
+    div {
+        display: flex;
+    }
+
+    button {
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+        align-self: center;
+        padding: 10rem 0;
+        box-shadow: -5px 1px 10px;
+    }
+
+    aside {
+        width: fit-content;
+        border: 1px solid black;
+        border-radius: 10px 0 0 10px;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        box-shadow: 3px 0 6px var(--inkBlack);
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+
+        margin: 0;
+        padding: 0;
+        gap: .5rem;
+        overflow-y: scroll;
+        height: 40rem;
+
+        scrollbar-color: var(--ashGrey) var(--darkKhaki);
+    }
+
+    li {
+        list-style: none;
+    }
+    li:nth-child(even) {
+        background-color: var(--ashGrey);
+    }
+</style>
