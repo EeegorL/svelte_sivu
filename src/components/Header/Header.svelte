@@ -18,7 +18,7 @@
     header {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: left;
         align-items: center;
 
         min-height: 75px;
