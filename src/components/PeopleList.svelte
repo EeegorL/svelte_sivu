@@ -90,22 +90,24 @@
 <style>
     div {
         display: flex;
+        width: fit-content;
+        position: sticky;
+        top: 1rem;        
     }
 
     button {
         writing-mode: vertical-lr;
         transform: rotate(180deg);
         align-self: center;
-        padding: 10rem 0;
+        padding: 10em 0;
         box-shadow: -5px 1px 10px;
     }
 
     aside {
         width: fit-content;
         border: 1px solid black;
+        background-color: whitesmoke;
         border-radius: 10px 0 0 10px;
-        margin-left: 1rem;
-        margin-top: 1rem;
         box-shadow: 3px 0 6px var(--inkBlack);
     }
 

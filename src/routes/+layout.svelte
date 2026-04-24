@@ -1,8 +1,13 @@
 <script>
+	import moment from "moment";
+	import "moment/locale/fi";
+
     import Footer from '../components/Footer.svelte';
     import Header from '../components/Header.svelte';
 
 	let { children } = $props();
+
+	
 </script>
 
 <style>

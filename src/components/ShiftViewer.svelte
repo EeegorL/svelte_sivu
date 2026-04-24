@@ -2,26 +2,28 @@
     const vuorotyypit = [
         "Vuorovastaava",
         "Aineistovuoro",
-        "Asiakaspalvelu - 3. krs",
+        "Kaisa - aspa",
         "Puhelinpalvelu",
         "Kokoelmatyöt Kaisa",
         "Digiaspa",
         "Kumpula aspa",
         "Terkko aspa",
         "Viikki aspa",
-        "Etätöitä (merkitse nootilla kaikki tunnit)",
+        "Etätöitä",
         "Poissa",
         "Lomalla, poissa koko päivän"
     ];
-
     const ajat = Array.from({length: 20 - 8}, (x, i) => i + 8);
+
+    const props = $props();
+
 </script>
 
 <div>
     <table>
         <thead>
             <tr>
-            <th></th>
+            <th>{props.date}</th>
             {#each vuorotyypit as t}
                 <th>{t}</th>
             {/each}
@@ -39,7 +41,6 @@
                 {:else}
                     <td></td> <!--Default-->
                 {/if}
-                    
                 {/each}
             </tr>
             {/each}
@@ -49,15 +50,25 @@
 
 <style>
     div {
-        width: 95%;
-        margin: 0 1rem;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid black;
     }
     
     table {
         width: 100%;
-        margin-top: 1rem;
         border-collapse: collapse;
-        background-color: whitesmoke;
+        /* background-color: whitesmoke; */
+    }
+
+    td, th {
+        padding: 0;
+        height: 3rem;
+        width: 7rem;
+    }
+
+    td {
+        border: 1px solid black;
     }
 
     th {
@@ -66,11 +77,14 @@
         margin: 0;
     }
 
-    td, th {
-        padding: 0;
-        height: 3rem;
-        width: 7rem;
-        border: 1px solid black;
+    thead th:not(:last-child) {
+        border-right: 1px solid black;
+    }
+    tbody th:not(:last-child) {
+        border-top: 1px solid black;
+    }
+    tbody tr:first-child td:last-child{
+        border-right: none;
     }
 
     tr > th:first-child {

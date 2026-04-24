@@ -1,3 +1,7 @@
+<script>
+
+</script>
+
 <header>
     <a href="/">
         <img alt="Sivuston logo" src="/img/logo.png"/>
@@ -5,10 +9,10 @@
     <nav>
         <ul>
             <li>
-                <a href="/pv/abc"><button>pv</button></a>
+                <a href="/pv/"><button>pv</button></a>
             </li>
             <li>
-                <a href="/vk/def"><button>vk</button></a>
+                <a href="/vk/"><button>vk</button></a>
             </li>
         </ul>
     </nav>
@@ -37,7 +41,7 @@
         background-color: var(--dustyOlive);
         color: whitesmoke;
         margin: 0 1rem;
-        padding: .2rem 2rem;
+        padding: .2em 2rem;
         box-shadow: 2px 2px 3px black;
     }
 </style>
