@@ -1,6 +1,7 @@
 <script>
 	import moment from "moment";
 	import "moment/locale/fi";
+	moment.locale("fi");
 
     import Footer from '../components/Footer.svelte';
     import Header from '../components/Header.svelte';

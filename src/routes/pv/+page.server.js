@@ -1,3 +1,4 @@
+import { normalizeDate } from "$lib/utils.js";
 import { redirect } from "@sveltejs/kit";
 import moment from "moment";
 
@@ -5,8 +6,7 @@ export function load({params}) {
     const path = params.slug;
     if(!path) {
         const today = moment();
-        const parsed = `${today.date()}-${today.month()+1}-${today.year()}`;
+        const parsed = normalizeDate(`${today.date()}-${today.month()+1}-${today.year()}`).date;
         redirect(303, `/pv/${parsed}`);
     }
-    
 }

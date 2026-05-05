@@ -6,14 +6,14 @@ export function load({params}) {
     const path = params.slug;
     
     const parts = path.split("-");
-    if(parts.length !== 3) goToToday("pv");
+    if(parts.length !== 3) goToToday("vk");
 
     const date = normalizeDate(path);
-    if(!date) goToToday("pv"); // invalid date
-    if(date.changed) redirect(303, `/pv/${date.date}`);
+    if(!date) goToToday("vk"); // invalid date
+    if(date.changed) redirect(303, `/vk/${date.date}`);
 
     const pathDate = moment(date.date, "DD-MM-YYYY", true);
-    if(!pathDate.isValid()) goToToday("pv");
+    if(!pathDate.isValid()) goToToday("vk");
     
     return {
         date: pathDate.format("LL").toString()
