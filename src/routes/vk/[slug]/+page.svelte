@@ -1,6 +1,9 @@
 <script>
+    import Calendar from "../../../components/Calendar.svelte";
     import PeopleList from "../../../components/PeopleList.svelte";
     import ShiftViewer from "../../../components/ShiftViewer.svelte";
+
+    const {data} = $props();
 </script>
 
 <style>
@@ -21,24 +24,16 @@
         padding: 0;
     }
 
-    li {
-        list-style: none;
-        margin-bottom: 1rem;
-    }
-
 </style>
 
 <main>
-    <span>
+    <aside>
+        <Calendar/>
         <PeopleList/>
-    </span>
+    </aside>
     <ul>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
+        {#each data.dates as day}
+            <ShiftViewer date={day}/>
+        {/each}
     </ul>
 </main>

@@ -15,7 +15,6 @@ export const normalizeDate = (date) => {
 
     const dateStr = parts.join("-");
     const dateFromStr = moment(dateStr, "DD-MM-YYYY", true);
-    console.log(dateFromStr)
     
     if(!dateFromStr.isValid()) return false;
     return {date: dateStr, changed: fixUrl};
@@ -27,3 +26,14 @@ export const goToToday = (type) => {
     redirect(303, `/${type}/${parsed}`);
 }
 
+export const viikonpaivaLyhenne = (date) => {
+    switch(date.day()) {
+        case 1: return "ma";
+        case 2: return "ti";
+        case 3: return "ke";
+        case 4: return "to";
+        case 5: return "pe";
+        case 6: return "la";
+        case 0: return "su";
+    }
+} 

@@ -1,5 +1,5 @@
 import { redirect } from "@sveltejs/kit";
-import { normalizeDate, goToToday } from "$lib/utils.js";
+import { normalizeDate, goToToday, viikonpaivaLyhenne } from "$lib/utils.js";
 import moment from "moment";
 
 export function load({params}) {
@@ -14,8 +14,11 @@ export function load({params}) {
 
     const pathDate = moment(date.date, "DD-MM-YYYY", true);
     if(!pathDate.isValid()) goToToday("pv");
-    
+
+    const startOfMonth = moment(pathDate).startOf("month");
     return {
-        date: pathDate.format("LL").toString()
+        testi: "abc",
+        monthStart: JSON.stringify(startOfMonth),
+        date: viikonpaivaLyhenne(pathDate) + " " + pathDate.format("LL").toString()
     }
 }

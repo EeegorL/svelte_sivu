@@ -1,4 +1,5 @@
 <script>
+    import Calendar from "../../../components/Calendar.svelte";
     import PeopleList from "../../../components/PeopleList.svelte";
     import ShiftViewer from "../../../components/ShiftViewer.svelte";
 
@@ -25,9 +26,10 @@
 </style>
 
 <main>
-    <span>
-        <PeopleList />
-    </span>
+    <aside>
+        <Calendar date={data.date} monthStart={data.monthStart}/>
+        <PeopleList/>
+    </aside>
     <span class="shiftViewerContainer">
         <ShiftViewer date={data.date}/>
     </span>

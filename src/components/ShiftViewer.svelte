@@ -22,8 +22,11 @@
 <div>
     <table>
         <thead>
-            <tr>
-            <th>{props.date}</th>
+        <tr>
+            <th colspan="100">{props.date}</th>
+        </tr>
+        <tr>
+            <th></th>
             {#each vuorotyypit as t}
                 <th>{t}</th>
             {/each}
@@ -51,14 +54,15 @@
 <style>
     div {
         width: 100%;
-        border-radius: 10px;
+        border-radius: 0 10px 10px 0;
         border: 1px solid black;
+        background-color: whitesmoke;
+        margin-bottom: 3rem;
     }
     
     table {
         width: 100%;
         border-collapse: collapse;
-        /* background-color: whitesmoke; */
     }
 
     td, th {
@@ -87,9 +91,17 @@
         border-right: none;
     }
 
+    tbody tr:last-child td, tbody tr:first-child td:last-child {
+        border-bottom: none;
+    }
+
     tr > th:first-child {
         width: 5rem;
         padding: 0;
+    }
+
+    thead tr:not(:first-child) th {
+        border-top: 1px solid black;
     }
     
 </style>
