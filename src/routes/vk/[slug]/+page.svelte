@@ -23,11 +23,6 @@
         padding: 0;
     }
 
-    li {
-        list-style: none;
-        margin-bottom: 1rem;
-    }
-
 </style>
 
 <main>

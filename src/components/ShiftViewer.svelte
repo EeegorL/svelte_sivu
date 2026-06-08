@@ -45,7 +45,7 @@
 <style>
     div {
         width: 100%;
-        border-radius: 10px;
+        border-radius: 0 10px 10px 0;
         border: 1px solid black;
         overflow: hidden !important;
     }
@@ -74,6 +74,10 @@
     }
     tbody th:not(:last-child) {
         border-top: 1px solid black;
+    }
+
+    tbody tr:last-child td, tbody tr:first-child td:last-child {
+        border-bottom: none;
     }
 
     tr > th:first-child {
