@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
     import PeopleList from "../../../components/PeopleList.svelte";
     import ShiftViewer from "../../../components/ShiftViewer.svelte";
+
+    const {data} = $props();
 </script>
 
 <style>
@@ -30,15 +32,11 @@
 
 <main>
     <span>
-        <PeopleList/>
+        <PeopleList people={data.people}/>
     </span>
     <ul>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
-        <li><ShiftViewer/></li>
+    {#each data.date as date}
+        <li><ShiftViewer date={date} shiftTypes={data.shiftTypes}/></li>
+     {/each}
     </ul>
 </main>

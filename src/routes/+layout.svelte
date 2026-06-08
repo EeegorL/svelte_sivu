@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
 	import moment from "moment";
+	// @ts-ignore
 	import "moment/locale/fi";
 	moment.locale("fi");
 

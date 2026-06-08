@@ -1,7 +1,3 @@
-<script>
-
-</script>
-
 <header>
     <a href="/">
         <img alt="Sivuston logo" src="/img/logo.png"/>
@@ -43,5 +39,6 @@
         margin: 0 1rem;
         padding: .2em 2rem;
         box-shadow: 2px 2px 3px black;
+        cursor: pointer;
     }
 </style>

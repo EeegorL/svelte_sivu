@@ -1,46 +1,40 @@
-<script>
-    const vuorotyypit = [
-        "Vuorovastaava",
-        "Aineistovuoro",
-        "Kaisa - aspa",
-        "Puhelinpalvelu",
-        "Kokoelmatyöt Kaisa",
-        "Digiaspa",
-        "Kumpula aspa",
-        "Terkko aspa",
-        "Viikki aspa",
-        "Etätöitä",
-        "Poissa",
-        "Lomalla, poissa koko päivän"
-    ];
+<script lang="ts">
+    import ShiftViewerCell from "./ShiftViewerCell.svelte";
+
     const ajat = Array.from({length: 20 - 8}, (x, i) => i + 8);
-
     const props = $props();
+    const shifts = () => props.shifts;
+    const cellShifts = (aika: number, vuoro: ShiftType) => {
+        let s: Array<Shift> = [...shifts()];
+        const filtered = s.filter(x => x.aika === aika && x.vuorotyyppi === vuoro.id);
 
+        return filtered;
+    }   
+    
 </script>
 
-<div>
+<div data-date={props.date}>
     <table>
         <thead>
             <tr>
-            <th>{props.date}</th>
-            {#each vuorotyypit as t}
-                <th>{t}</th>
+            <th>{props.date.str}</th>
+            {#each props.shiftTypes as t}
+                <th data-shift={t.id}>{t.nimi}</th>
             {/each}
             </tr>
         </thead>
         <tbody>
             {#each ajat as a}
             <tr>
-                <th>{a}-{a+1}</th>
-                {#each vuorotyypit as v}
-                {#if v.includes("Lomalla")}
-                    {#if a == ajat[0]}
-                        <td rowspan="12"></td>
+                <th data-time={a}>{a}-{a+1}</th>
+                {#each props.shiftTypes as v}
+                    {#if v.nimi.includes("Poissa koko päivän")}
+                        {#if a == ajat[0]}
+                            <ShiftViewerCell shifts={cellShifts(a, v)} aika={a} vuoro={v} pv={props.date}/>
+                        {/if}
+                    {:else}
+                        <ShiftViewerCell shifts={cellShifts(a, v)} aika={a} vuoro={v} pv={props.date}/>
                     {/if}
-                {:else}
-                    <td></td> <!--Default-->
-                {/if}
                 {/each}
             </tr>
             {/each}
@@ -53,28 +47,26 @@
         width: 100%;
         border-radius: 10px;
         border: 1px solid black;
+        overflow: hidden !important;
     }
     
     table {
         width: 100%;
         border-collapse: collapse;
-        /* background-color: whitesmoke; */
     }
 
-    td, th {
-        padding: 0;
-        height: 3rem;
-        width: 7rem;
-    }
-
-    td {
-        border: 1px solid black;
+    thead {
+        background-color: var(--dustyOlive);
+        color: whitesmoke;
     }
 
     th {
         font-weight: normal;
         padding: 0;
         margin: 0;
+        height: 3rem;
+        width: 7rem;
+        font-weight: bold;
     }
 
     thead th:not(:last-child) {
@@ -83,13 +75,14 @@
     tbody th:not(:last-child) {
         border-top: 1px solid black;
     }
-    tbody tr:first-child td:last-child{
-        border-right: none;
-    }
 
     tr > th:first-child {
         width: 5rem;
         padding: 0;
+    }
+
+    tr:nth-child(odd):not(thead tr) {
+        background-color: white;
     }
     
 </style>

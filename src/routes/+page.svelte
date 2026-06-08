@@ -1,5 +1,5 @@
-<script>
-    import ShiftViewer from "../components/ShiftViewer.svelte";
+<script lang="ts">
+
 </script>
 
 <style>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import PeopleList from "../../../components/PeopleList.svelte";
     import ShiftViewer from "../../../components/ShiftViewer.svelte";
 
@@ -26,9 +26,9 @@
 
 <main>
     <span>
-        <PeopleList />
+        <PeopleList people={data.people}/>
     </span>
     <span class="shiftViewerContainer">
-        <ShiftViewer date={data.date}/>
+        <ShiftViewer shifts={data.shifts} date={data.date} shiftTypes={data.shiftTypes}/>
     </span>
 </main>

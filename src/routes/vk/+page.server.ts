@@ -2,6 +2,7 @@ import { redirect } from "@sveltejs/kit";
 import moment from "moment";
 
 export function load({params}) {
+    //@ts-ignore
     const path = params.slug;
     if(!path) {
         const today = moment();
