@@ -16,6 +16,7 @@
 	@import "/globals.css";
 	div {
 		flex: 1;
+		width: 100vw;
 	}
 </style>
 

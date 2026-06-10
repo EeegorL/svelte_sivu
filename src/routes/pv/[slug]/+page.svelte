@@ -20,15 +20,16 @@
         width: 100%;
         margin-left: 0;
         padding: 0;
+        min-width: 0;
     }
 
 </style>
 
 <main>
-    <span>
+    <div>
         <PeopleList people={data.people}/>
-    </span>
-    <span class="shiftViewerContainer">
+    </div>
+    <div class="shiftViewerContainer">
         <ShiftViewer shifts={data.shifts} date={data.date} shiftTypes={data.shiftTypes}/>
-    </span>
+    </div>
 </main>
