@@ -4,46 +4,58 @@
 
 <script lang="ts">
     import { onMount } from "svelte";
+    import {dragState} from "$lib/stores/dragItemState.svelte";
 
     const {data} = $props();
     
     let target: HTMLDivElement;
-    let dataTransfer;
-    let ghost: HTMLDivElement;
+    let ghostElem: HTMLDivElement;
     const coords = {x: 0, y: 0};
 
     onMount(() => {
-        target.ondragstart = (e) => {
-            dataTransfer = e.dataTransfer;
-            
-            let henkiloData = {
+        const dragStartHandler = (e: DragEvent) => {
+            dragState.draggedItem = target;
+
+            dragState.dragData = {
                 henkilo: data,
                 source: null
             }
-            
-            // @ts-ignore aina on dataTransfer
-            dataTransfer.setData("text/json", JSON.stringify(henkiloData));
 
-            // @ts-ignore aina on dataTransfer
-            dataTransfer.setDragImage(new Image(), 0, 0);
+            if(e.dataTransfer) e.dataTransfer.setDragImage(new Image(), 0, 0);
             
-            ghost = document.createElement("div");
-            ghost.classList.add("ghost");
-            ghost.innerHTML = data.lyhenne;
+            ghostElem = document.createElement("div");
+            ghostElem.classList.add("ghost");
+            ghostElem.innerHTML = data.lyhenne;
+            dragState.ghost = ghostElem;
 
-            document.body.appendChild(ghost);
+            document.body.appendChild(ghostElem);
         }
 
-        target.ondrag = (e) => {
+        const dragOverHandler = (e: DragEvent) => {
+            let g = dragState.ghost;
+            if(!g) return;
+
             coords.x = e.pageX;
             coords.y = e.pageY;
 
-            ghost.style.left = `${coords.x - ghost.getBoundingClientRect().width / 2}px`;
-            ghost.style.top = `${coords.y - 30}px`;
+            g.style.left = `${coords.x - g.getBoundingClientRect().width / 2}px`;
+            g.style.top = `${coords.y - 30}px`;      
         }
 
-        target.ondragend = () => {
-            document.body.removeChild(ghost);
+        const dragEndHandler = (e: DragEvent) => {
+            dragState.ghost = null;
+            dragState.draggedItem = null;
+            document.body.removeChild(ghostElem);
+        }
+
+        target.addEventListener("dragstart", dragStartHandler);
+        document.addEventListener("dragover", dragOverHandler);
+        target.addEventListener("dragend", dragEndHandler);
+
+        return () => {
+            target.removeEventListener("dragstart", dragStartHandler);
+            document.removeEventListener("dragover", dragOverHandler);
+            target.removeEventListener("dragend", dragEndHandler);
         }
     });
 </script>

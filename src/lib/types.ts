@@ -4,11 +4,6 @@ type DragData = {
         nimi: string,
         lyhenne: string
     },
-    vuoro: {
-        vuorotyyppi: number,
-        aika: number,
-        paiva: string
-    },
     source: {
         vuoroId: number,
         vuorotyyppi: number,
@@ -32,4 +27,10 @@ type ShiftType = {
     id: number,
     nimi: string,
     nro: number
+}
+
+type Person = {
+    id: number,
+    nimi: string,
+    lyhenne: string
 }

@@ -75,10 +75,6 @@
         border-top: 1px solid black;
     }
 
-    tbody tr:last-child td, tbody tr:first-child td:last-child {
-        border-bottom: none;
-    }
-
     tr > th:first-child {
         width: 5rem;
         padding: 0;

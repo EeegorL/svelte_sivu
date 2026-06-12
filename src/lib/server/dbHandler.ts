@@ -56,7 +56,7 @@ export const getShifts = async (day: string) => {
     }
 }
 
-export const addShift = async (data: DragData) => {
+export const addShift = async (data: any) => {
     let conn;
     try {
         conn = await pool.getConnection();
@@ -67,7 +67,7 @@ export const addShift = async (data: DragData) => {
         if(data.source) {
            const deleteSource = await conn.query("DELETE FROM vuoro WHERE id = ?", [data.source.vuoroId]);
         }
-        
+        console.log(data.vuoro)
         const newShift = await conn.query("INSERT INTO vuoro(pv, vuoro, aika, henkilo, note) VALUES(?, ?, ?, ?, ?)",
             [
                 new Date(data.vuoro.paiva),

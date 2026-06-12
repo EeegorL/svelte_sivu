@@ -5,6 +5,7 @@
 
     let sidebarShown = $state(true);
     const toggleSidebar = () => sidebarShown = !sidebarShown;
+    
 </script>
 
 <div>

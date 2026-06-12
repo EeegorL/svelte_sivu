@@ -1,6 +1,7 @@
 <script lang="ts">
     import { invalidate } from "$app/navigation";
     import { onMount } from "svelte";
+    import {dragState} from "$lib/stores/dragItemState.svelte";
 
     const props = $props();
     const vuoro = () => props.vuoro;
@@ -21,14 +22,14 @@
     onMount(() => {
         target.ondragover = (e) => e.preventDefault();
 
-        target.ondrop = async (e) => {
+        target.ondrop = async () => {
             try {
-                // @ts-ignore
-                const sourceData = JSON.parse(e.dataTransfer.getData("text/json"));
-                
+                const sourceData = dragState.dragData;
+                console.log(sourceData)
+                if(!sourceData) return;
                 if (!(sourceData.henkilo.id && sourceData.henkilo.nimi && sourceData.henkilo.lyhenne)) return;
 
-                const data: DragData = {
+                const data = {
                     henkilo: {
                         id: sourceData.henkilo.id,
                         nimi: sourceData.henkilo.nimi,
