@@ -30,6 +30,6 @@
         <PeopleList people={data.people}/>
     </div>
     <div class="shiftViewerContainer">
-        <ShiftViewer shifts={data.shifts} date={data.date} shiftTypes={data.shiftTypes}/>
+        <ShiftViewer date={data.date} shifts={data.shifts} shiftTypes={data.shiftTypes}/>
     </div>
 </main>

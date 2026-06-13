@@ -1,9 +1,9 @@
 import { redirect } from "@sveltejs/kit";
-import { normalizeDate, goToToday } from "$lib/utils.js";
+import { normalizeDate, goToToday, dateRelation } from "$lib/utils.js";
 import moment from "moment";
-import { getPeople, getShiftTypes } from "$lib/server/dbHandler";
+import { getPeople, getShifts, getShiftTypes } from "$lib/server/dbHandler";
 
-export async function load({params}) {
+export async function load({params, depends}) {
     const path = params.slug;
     
     const parts = path.split("-");
@@ -13,20 +13,32 @@ export async function load({params}) {
     if(!date) goToToday("vk"); // invalid date
     if(date.changed) redirect(303, `/vk/${date.date}`);
 
-    const pathDate = moment(date.date, "DD-MM-YYYY", true);
+    const pathDate = moment(date.date, "YYYY-MM-DD", true);
     if(!pathDate.isValid()) goToToday("vk");
     
     const dates = [];
     const mon = pathDate.clone().startOf("week");
     for(let i = 0; i < 7; i++) {
-        dates.push({date: mon.clone().add(i, "days").format("DD.MM.YYYY"), str: mon.clone().add(i, "days").format("ddd DD.MM.YYYY").toString()});
+        const thisDate = mon.clone().add(i, "days");
+
+        dates.push({date: thisDate.format("YYYY-MM-DD"), str: dateRelation(thisDate.format("YYYY-MM-DD")) + thisDate.format("ddd DD.MM.YYYY").toString()});
     }
+    
     const people = await getPeople();
     const shiftTypes = await getShiftTypes();
+
+    const shifts = [];
+    for(let date of dates) {
+        const dayShifts: Array<Shift> = await getShifts(date.date);
+        shifts.push(dayShifts);
+    }
+
+    depends("data:people", "data:shifts", "data:shiftTypes");
 
     return {
         date: dates,
         people: people,
-        shiftTypes: shiftTypes
+        shiftTypes: shiftTypes,
+        shifts: shifts
     }
 }

@@ -5,7 +5,7 @@ import moment from 'moment';
 export const GET = async ({params}) => {
     const slug = params.slug;
     
-    const date = moment(slug, "DD-MM-YYYY", true);
+    const date = moment(slug, "YYYY-MM-DD", true);
     if(!date.isValid()) {
         return json({
             err: "Invalid date parameter"
@@ -22,7 +22,7 @@ export const GET = async ({params}) => {
     const data: Record<number, any> = {};
     let i = 0;
     for(let day of days) {
-        const daysShifts = await getShifts(day.format("DD-MM-YYYY"));
+        const daysShifts = await getShifts(day.format("YYYY-MM-DD"));
         data[i] = daysShifts;
         i++;
     }

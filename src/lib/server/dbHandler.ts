@@ -32,7 +32,7 @@ export const getShifts = async (day: string) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        const dayDate = new Date(day);
+        const dayDate = new Date(day).toISOString()
 
         const shifts = await conn.query(`
             SELECT 
@@ -42,7 +42,7 @@ export const getShifts = async (day: string) => {
             H.id AS henkiloId,
             H.nimi AS henkilo,
             H.lyhenne
-            FROM vuoro V INNER JOIN henkilo H ON V.henkilo = H.id WHERE pv = ?`
+            FROM vuoro V INNER JOIN henkilo H ON V.henkilo = H.id WHERE pv = ?;`
         , [dayDate]);
 
         return shifts;
@@ -60,14 +60,10 @@ export const addShift = async (data: any) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        // const personExists = (await conn.query("SELECT COUNT(*) = 1 AS c FROM henkilo WHERE id=?;", [data.henkilo.id]))[0].c;
-        // if(!personExists) throw Error("Viallinen henkilö-id");
-
         await conn.beginTransaction();
         if(data.source) {
            const deleteSource = await conn.query("DELETE FROM vuoro WHERE id = ?", [data.source.vuoroId]);
         }
-        console.log(data.vuoro)
         const newShift = await conn.query("INSERT INTO vuoro(pv, vuoro, aika, henkilo, note) VALUES(?, ?, ?, ?, ?)",
             [
                 new Date(data.vuoro.paiva),

@@ -21,6 +21,12 @@
         margin-left: 0;
         margin-top: 0;
         padding: 0;
+        overflow-x: scroll;
+    }
+
+    li {
+        list-style: none;
+        margin-bottom: 30px;
     }
 
 </style>
@@ -30,8 +36,8 @@
         <PeopleList people={data.people}/>
     </span>
     <ul>
-    {#each data.date as date}
-        <li><ShiftViewer date={date} shiftTypes={data.shiftTypes}/></li>
+    {#each data.date as date, i}
+        <li><ShiftViewer date={date} shifts={data.shifts[i]} shiftTypes={data.shiftTypes}/></li>
      {/each}
     </ul>
 </main>

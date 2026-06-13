@@ -2,6 +2,7 @@
     import { invalidate } from "$app/navigation";
     import { onMount } from "svelte";
     import {dragState} from "$lib/stores/dragItemState.svelte";
+    import Person from "./Person.svelte";
 
     const props = $props();
     const vuoro = () => props.vuoro;
@@ -25,7 +26,7 @@
         target.ondrop = async () => {
             try {
                 const sourceData = dragState.dragData;
-                console.log(sourceData)
+
                 if(!sourceData) return;
                 if (!(sourceData.henkilo.id && sourceData.henkilo.nimi && sourceData.henkilo.lyhenne)) return;
 
@@ -72,7 +73,7 @@
 >
     <div class="vuoroContainer">
         {#each vuorot() as v}
-            <span>{v.lyhenne}</span>
+            <Person data={v}/>
         {/each}
     </div>
 
